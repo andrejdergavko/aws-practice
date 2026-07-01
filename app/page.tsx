@@ -1,7 +1,9 @@
 export default function Home() {
   return (
-    <div>
-      <h1>Hello World</h1>
+    <div className="flex flex-col items-center justify-center h-screen">
+      <button className="bg-blue-500 text-white p-2 rounded-md">
+        Upload image
+      </button>
     </div>
   );
 }

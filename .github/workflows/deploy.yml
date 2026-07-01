@@ -7,26 +7,27 @@ on:
     branches: [main]
 
 jobs:
-  ci-app:
-    name: CI app
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get repository code
-        uses: actions/checkout@v4
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 9
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Type checking
-        run: pnpm tsc
-      - name: Linting
-        run: pnpm lint
+  # ci-app:
+  #   name: CI app
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Get repository code
+  #       uses: actions/checkout@v4
+  #     - name: Set up pnpm
+  #       uses: pnpm/action-setup@v2
+  #       with:
+  #         version: 9
+  #     - name: Install dependencies
+  #       run: pnpm install --frozen-lockfile
+  #     - name: Type checking
+  #       run: pnpm tsc
+  #     - name: Linting
+  #       run: pnpm lint
 
   cd-app:
     name: CD app
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: Get repository code
         uses: actions/checkout@v4

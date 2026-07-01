@@ -1,37 +1,25 @@
-name: Lint
+name: CI/CD
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
-  workflow_dispatch:
+    branches: [main]
 
 jobs:
-  lint:
+  ci-app:
+    name: CI app
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
     steps:
-      - name: Checkout repository
+      - name: Get repository code
         uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: pnpm
-
       - name: Set up pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 9
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Run lint
+      - name: Type checking
+        run: pnpm tsc
+      - name: Linting
         run: pnpm lint

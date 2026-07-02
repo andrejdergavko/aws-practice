@@ -53,4 +53,4 @@ jobs:
 
       - name: Deploy
         run: |
-          aws ecs update-service --cluster image-loader-cluster --service image-loader-task-service-service-a9v37fhr --force-new-deployment
+          aws ecs update-service --cluster image-loader-cluster-2-4r2jo7 --service image-loader-service-ujv99t2h --force-new-deployment

@@ -31,7 +31,13 @@ export async function GET() {
     const listResponse = await s3Client.send(listCommand);
     const contents = listResponse.Contents ?? [];
     const withKeys = contents.filter(
-      (object): object is { Key: string } => typeof object.Key === 'string',
+      (
+        object,
+      ): object is {
+        Key: string;
+        LastModified?: Date;
+        Size?: number;
+      } => typeof object.Key === 'string',
     );
 
     const items = await Promise.all(

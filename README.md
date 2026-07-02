@@ -20,6 +20,19 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Uploading to Amazon S3
+
+`app/page.tsx` renders an upload button that requests a signed upload URL from `POST /api/upload-url` before sending the file directly to Amazon S3. Configure the app with the following environment variables so the API route can generate the signed link:
+
+- `AWS_REGION` &mdash; AWS region where the bucket lives (e.g., `eu-central-1`).
+- `AWS_S3_BUCKET_NAME` &mdash; name of the S3 bucket that will receive the uploads.
+- `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` &mdash; credentials with permissions to call `s3:PutObject` on the bucket.
+  You can also provide `AWS_SESSION_TOKEN` if you rely on temporary credentials.
+
+Set these variables locally (for example, in a `.env.local` file) and via your deployment target before running the app.
+
+The app also fetches `GET /api/uploads`, which lists the `uploads/` prefix, signs `GET` URLs for each object, and renders a small gallery on the home page. Ensure your IAM credentials include `s3:GetObject`, and verify the bucket’s CORS policy allows your front-end origin to `GET` objects if you want the gallery to display thumbnails directly from S3.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
